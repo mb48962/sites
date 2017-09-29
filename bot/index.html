@@ -31,13 +31,17 @@ crossorigin="anonymous"></script>
 <script src="Brython-3.3.4/brython.js"></script>
 </head>
 <body onload="brython()">
+  <p id="test"></p>
 <script type="text/python">
 from browser import document, alert
 
 def echo(ev):
     alert(document["zone"].value)
-    
-document.print "from script"
+
+test = document.getElementById("test")
+document.print "print"
+document.appendChild("append child")
+test.innerHTML = "innerHTML"
 
 document['mybutton'].bind('click',echo)
 </script>
