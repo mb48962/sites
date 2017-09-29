@@ -36,6 +36,7 @@ from browser import document, alert
 
 def echo(ev):
     alert(document["zone"].value)
+print "from script"
 
 document['mybutton'].bind('click',echo)
 </script>
