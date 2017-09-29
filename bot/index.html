@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
@@ -23,5 +23,22 @@ crossorigin="anonymous"></script>
 <body>
   <p> hello </p>
 
+</body>
+</html> -->
+
+<html>
+<head>
+<script src="Brython-3.3.4/brython.js"></script>
+</head>
+<body onload="brython()">
+<script type="text/python">
+from browser import document, alert
+
+def echo(ev):
+    alert(document["zone"].value)
+
+document['mybutton'].bind('click',echo)
+</script>
+<input id="zone"><button id="mybutton">click !</button>
 </body>
 </html>
