@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>Matthew</title>
+<link rel="shortcut icon" type="image/png" href="images/favicon.png"/>
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+<link rel="stylesheet"
+href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+crossorigin="anonymous"></script>
+<link rel="stylesheet" href="canvas.css" type="text/css"/>
+<script type="text/javascript" href="particle.js"></script>
+<style>
+  /* Parallax base styles
+  --------------------------------------------- */
+
+  .parallax {
+    height: 500px; /* fallback for older browsers */
+    height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-perspective: 300px;
+    perspective: 1000px;
+  }
+  .parallax__group {
+    position: relative;
+    height: 500px; /* fallback for older browsers */
+    height: 100vh;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+  }
+  .parallax__layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0%;
+  }
+
+  /*formula: scale = ( 1 + [(translateZ * -1 )/perspective] )
+    perspective currently set to 1000px*/
+  .parallax__layer--first {
+    -webkit-transform: translateZ(-5000px) scale(4);
+    transform: translateZ(-5000px) scale(4);
+    z-index: -3;
+  }
+  .parallax__layer--second {
+    -webkit-transform: translateZ(-1000px)scale(2);
+    transform: translateZ(-1000px) scale(2);
+    z-index: -2;
+    top: 400%;
+    left: -40%;
+  }
+  .parallax__layer--third {
+    -webkit-transform: translateZ(-3000px)scale(4);
+    transform: translateZ(-3000px) scale(4);
+    z-index: -1;
+    top: 320%;
+  }
+  .parallax__layer--particle {
+    -webkit-transform: translateZ(-5000px) scale(6);
+    transform: translateZ(-5000px) scale(6);
+    z-index: -4;
+  }
+
+  /* style the groups
+  --------------------------------------------- */
+  /*#one {
+    z-index: 1;
+  }
+  #two {
+    z-index: 2;
+  }
+  #three {
+    z-index: 3;
+  }*/
+
+  /* media
+  --------------------------------------------- */
+  @media only screen and (max-width: 500px) {
+    .parallax__layer--first {
+      -webkit-transform: translateZ(-5000px) scale(2.5);
+      transform: translateZ(-5000px) scale(2.5);
+      z-index: -3;
+    }
+    .parallax__layer--second {
+      -webkit-transform: translateZ(-5000px)scale(6);
+      transform: translateZ(-5000px) scale(6);
+      z-index: -2;
+      top: 0%;
+      left: 0%;
+    }
+    .parallax__layer--third {
+      -webkit-transform: translateZ(-2000px)scale(3);
+      transform: translateZ(-2000px) scale(3);
+      top: 200%;
+    }
+    .btn-toolbar>.btn {
+      margin-left: 10%;
+      margin-right: 0%;
+    }
+    #contact h1 {
+      width: 100%;
+      margin-left: 0;
+    }
+  }
+
+  @media only screen and (max-width: 1400px) {
+    .parallax__layer--second {
+      left: 0%;
+    }
+  }
+</style>
+</head>
+
+<body>
+
+  <!-- first section-->
+  <div class="parallax">
+    <div id="one" class="parallax__group">
+      <!-- particle layer-->
+      <div class="parallax__layer parallax__layer--particle">
+          <canvas id="area"></canvas>
+      </div>
+      <!-- first layer-->
+      <div class="parallax__layer parallax__layer--first">
+        <img id="1" src="images/spiral.png"></img>
+      </div>
+      <!-- second layer-->
+      <div class="parallax__layer parallax__layer--second">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-4">
+              <p style="color: whitesmoke"> art by matthew bernas </p>
+            </div>
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4"></div>
+          </div>
+        </div>
+      </div>
+      <!-- third layer-->
+      <div class="parallax__layer parallax__layer--third">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8">
+              <div class="btn-toolbar text-center">
+                <button href="#portfolioModal1" data-toggle="modal" type="button" class="btn btn-default">projects</button>
+                <!-- <button href="images/Fall2017Resume.pdf" class="btn btn-default">resumé</button> -->
+                <button type="submit" class="btn btn-default" onclick="window.open('images/Fall2017Resume.pdf')">resumé</button>
+                <button href="#portfolioModal3" data-toggle="modal" type="button" class="btn btn-default">work</button>
+              </div>
+              <div id="contact">
+                <h1>✧･ﾟ c o n t a c t ･ﾟ✧</h1>
+                <p>mb48962@vt.edu</p>
+                <ul class="list-inline text-center">
+                  <li>
+                      <a href="https://www.linkedin.com/in/matthew-bernas-297814110" class="btn-social btn-outline"><i class="fa fa-fw fa-linkedin"></i></a>
+                  </li>
+                  <li>
+                      <a href="https://github.com/mb48962" class="btn-social btn-outline"><i class="fa fa-fw fa-github"></i></a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-sm-2"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Portfolio Modals -->
+    <!-- PROJECTS BUTTON -->
+    <div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-content">
+            <div class="close-modal" data-dismiss="modal">
+                <div class="lr">
+                    <div class="rl">
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <div class="modal-body">
+                            <h2 style="color: whitesmoke">Projects</h2>
+                            <hr class="star-primary">
+
+                            <p>
+                                <STRONG> Protein DataBase Analyzer: </STRONG>
+                            </p>
+                            <p>
+                                The program reads a PDB file containing the position and size of molecules. The purpose of the program is to differentiate voids and cavities in the protein structure. Cavities are empty spaces in a structure that are completely enclosed instead of voids which are open to the outside. The program uses a discretization algorithm to search for these areas and creates a new PDB file that marks the location of cavities. The program can be set to different resolution and cavity size to customize the users search.
+                            </p>
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- PROJECTS BUTTON -->
+    <div class="portfolio-modal modal fade" id="portfolioModal2" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-content">
+            <div class="close-modal" data-dismiss="modal">
+                <div class="lr">
+                    <div class="rl">
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <div class="modal-body">
+                            <h2>Projects</h2>
+                            <hr class="star-primary">
+
+                            <p>
+                                <STRONG> Protein DataBase Analyzer: </STRONG>
+                            </p>
+                            <p>
+                                The program reads a PDB file containing the position and size of molecules. The purpose of the program is to differentiate voids and cavities in the protein structure. Cavities are empty spaces in a structure that are completely enclosed instead of voids which are open to the outside. The program uses a discretization algorithm to search for these areas and creates a new PDB file that marks the location of cavities. The program can be set to different resolution and cavity size to customize the users search.
+                            </p>
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- PROJECTS BUTTON -->
+    <div class="portfolio-modal modal fade" id="portfolioModal3" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-content">
+            <div class="close-modal" data-dismiss="modal">
+                <div class="lr">
+                    <div class="rl">
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <div class="modal-body">
+                              <h2 style="color: whitesmoke">Work Experience</h2>
+                             <p>
+                             <STRONG>Hokie Centric</STRONG>
+                             </p>
+                             <p>
+                                 Became Apple Certified to sell computers to incoming freshmen. Different majors had different computer requirements and our job was to best match the student for their needs. Other responsibilities included helping customers with OS issues or with specific programs. The latter of the job I was training to become certified to repair computers.
+                             </p>
+                             <p>
+                                 <STRONG>VT Dining Service</STRONG>
+                             </p>
+                             <p>
+                                 Served food at West End Food Market after becoming certified to handle and serve food.
+                             </p>
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+  <!-- Particles -->
+  <script>
+    console.clear();
+    MeteorRain = new function() {
+    var SCREEN_WIDTH = window.innerWidth;
+    var SCREEN_HEIGHT = window.innerHeight;
+
+    var cursor;
+    var canvas;
+    var context;
+
+    var particles = [];
+
+    var mouseX = 0;
+    var mouseY = 0;
+
+    var limited = 0;
+
+    this.init = function() {
+      canvas = document.querySelector("canvas");
+
+      if (canvas && canvas.getContext) {
+        context = canvas.getContext('2d');
+
+        document.addEventListener('mousemove', documentMouseMoveHandler, false);
+        document.addEventListener('mousedown', documentMouseDownHandler, false);
+        window.addEventListener('resize', windowResizeHandler, false);
+
+        createCursor();
+
+        windowResizeHandler();
+
+        setInterval(loop, 1000/100);
+      }
+    }
+
+    function createCursor(position) {
+      var w = 300;
+      var h = 300;
+
+    if (!position){
+      var pos = {
+        x: ( SCREEN_WIDTH - w ) * 0.5 + (Math.random() * w),
+        y: ( SCREEN_HEIGHT - h ) * 0.5 + (Math.random() * h)
+      }
+
+      var m = new Cursor();
+      m.position.x = pos.x;
+      m.position.y = pos.y;
+
+      cursor = m;
+
+      createParticles(m.position);
+
+      } else {
+        var m = new Cursor();
+          m.position.x = position.x;
+          m.position.y = position.y;
+
+        createParticles(m.position);
+      }
+    }
+
+    function createParticles(pos) {
+      for (var i = 0; i < 50; i++) {
+        var p = new Particle();
+        p.position.x = pos.x;
+        p.position.y = pos.y;
+        p.shift.x = pos.x;
+        p.shift.y = pos.y;
+
+        particles.push(p);
+      }
+    }
+
+    function documentMouseMoveHandler(event) {
+      mouseX = event.clientX;
+      mouseY = event.clientY;
+    }
+
+    function documentMouseDownHandler(event) {
+      limited++;
+      if (limited < 6) {
+        createCursor({x: mouseX, y: mouseY});
+      }
+    }
+
+    function windowResizeHandler() {
+      canvas.width = SCREEN_WIDTH;
+      canvas.height = SCREEN_HEIGHT;
+
+      canvas.style.position = 'absolute';
+
+      canvas.style.left = (window.innerWidth - SCREEN_WIDTH) * 0.5 + 'px';
+      canvas.style.top = (window.innerHeight - SCREEN_HEIGHT) * 0.5 + 'px';
+    }
+
+    function loop() {
+      context.fillStyle = 'rgba(0,0,0,0.2)';
+      context.fillRect(0, 0, canvas.width, canvas.height);
+
+      var particle;
+      var i, j, ilen, jlen;
+
+      cursor.position.x += (mouseX - cursor.position.x)*0.1;
+      cursor.position.y += (mouseY - cursor.position.y)*0.1;
+
+      for (i = 0, ilen = particles.length; i < ilen; i++) {
+        particle = particles[i];
+
+        particle.angle += particle.speed;
+
+        particle.shift.x += (cursor.position.x - particle.shift.x) * particle.speed;
+        particle.shift.y += (cursor.position.y - particle.shift.y) * particle.speed;
+
+        particle.position.x = particle.shift.x + Math.sin(i + particle.angle) * (particle.orbit*particle.force);
+        particle.position.y = particle.shift.y + Math.cos(i + particle.angle) * (particle.orbit*particle.force);
+
+        particle.orbit += (cursor.orbit - particle.orbit) * 0.01;
+
+        context.beginPath();
+        context.fillStyle = "hsl("+((particle.position.x/canvas.width + particle.position.y/canvas.height) * 180) + ", 100%, 70%)";
+        context.arc(particle.position.x, particle.position.y, particle.size/2, 0, Math.PI*2, true);
+        context.fill();
+      }
+    }
+    }
+
+    function distanceBetween(p1,p2) {
+    var dx = p2.x - p1.x;
+    var dy = p2.y - p1.y;
+    return Math.sqrt(dx^2 + dy^2);
+    }
+
+    var grow = 0;
+    function Particle() {
+      grow = grow + 0.001;
+    this.size = 2 + Math.random()*4 + grow;
+    this.position = {x: 0, y: 0};
+    this.shift = {x: 0, y: 0};
+    this.angle = 0;
+    this.speed = 0.0001 + Math.random()*0.0002;
+    this.force = -(Math.random()*10);
+    this.orbit = 1;
+    }
+
+    function Cursor() {
+    this.orbit = 100;
+    this.position = {x: 0, y: 0};
+    }
+
+    MeteorRain.init();
+
+      </script>
+
+</body>
+</html>
