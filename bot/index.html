@@ -31,15 +31,12 @@ crossorigin="anonymous"></script>
 <script src="Brython-3.3.4/brython.js"></script>
 </head>
 <body onload="brython()">
-  <p id="test"></p>
+  <p id="test">HELLO</p>
+
 <script type="text/python">
 from browser import document
-
-test = document.getElementById("test")
-document.appendChild("append child")
-test.innerHTML = "innerHTML"
-
+document.getElementById("test").innerHTML = "first innerHTML"
 </script>
-<input id="zone"><button id="mybutton">click !</button>
+
 </body>
 </html>
