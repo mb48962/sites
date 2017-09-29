@@ -33,17 +33,12 @@ crossorigin="anonymous"></script>
 <body onload="brython()">
   <p id="test"></p>
 <script type="text/python">
-from browser import document, alert
-
-def echo(ev):
-    alert(document["zone"].value)
+from browser import document
 
 test = document.getElementById("test")
-document.print "print"
 document.appendChild("append child")
 test.innerHTML = "innerHTML"
 
-document['mybutton'].bind('click',echo)
 </script>
 <input id="zone"><button id="mybutton">click !</button>
 </body>
